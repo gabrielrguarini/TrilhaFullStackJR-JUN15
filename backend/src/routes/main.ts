@@ -6,7 +6,7 @@ export const mainRouter = Router();
 
 mainRouter.get("/ping", ping);
 
-// mainRouter.post("/auth/singup", singUp);
+mainRouter.post("/auth/singup", singUp);
 // mainRouter.get("/auth/singin", singIn);
 // mainRouter.put("/edit/user", editUser);
 
