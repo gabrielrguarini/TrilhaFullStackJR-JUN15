@@ -24,16 +24,13 @@ export const singUp = async (req: Request, res: Response) => {
 
     const passwordHash = await hash(safeData.data.password, 10);
 
-    const newUser = prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         email: safeData.data.email,
         password: passwordHash,
       },
     });
-    const token = jwt.sign(
-      { email: (await newUser).email },
-      process.env.JWT_SECRET!
-    );
+    const token = jwt.sign({ email: newUser.email }, process.env.JWT_SECRET!);
     res.json({
       token,
     });
