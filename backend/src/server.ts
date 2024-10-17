@@ -8,7 +8,6 @@ server.use(helmet());
 server.use(cors());
 server.use(urlencoded({ extended: true }));
 server.use(express.json());
-
 server.use(mainRouter);
 
 server.listen(process.env.PORT || 3333, () => {

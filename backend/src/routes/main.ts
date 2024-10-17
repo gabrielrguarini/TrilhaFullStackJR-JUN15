@@ -1,13 +1,14 @@
 import { Router } from "express";
 import { ping } from "../controllers/ping";
 import { singUp } from "../controllers/singup";
+import { singIn } from "../controllers/singin";
 
 export const mainRouter = Router();
 
 mainRouter.get("/ping", ping);
 
 mainRouter.post("/auth/singup", singUp);
-// mainRouter.get("/auth/singin", singIn);
+mainRouter.get("/auth/singin", singIn);
 // mainRouter.put("/edit/user", editUser);
 
 // mainRouter.get("/posts", getPost);
