@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { singUpSchema } from "../schemas/singUpSchema";
-import { findUserByEmail } from "../services/user";
+import { createUser, findUserByEmail } from "../services/user";
 import { hash } from "bcrypt-ts";
 import { prisma } from "../utils/prisma";
 import jwt from "jsonwebtoken";
@@ -24,12 +24,7 @@ export const singUp = async (req: Request, res: Response) => {
 
     const passwordHash = await hash(safeData.data.password, 10);
 
-    const newUser = await prisma.user.create({
-      data: {
-        email: safeData.data.email,
-        password: passwordHash,
-      },
-    });
+    const newUser = await createUser(safeData.data.email, passwordHash);
     const token = jwt.sign({ email: newUser.email }, process.env.JWT_SECRET!);
     res.json({
       token,

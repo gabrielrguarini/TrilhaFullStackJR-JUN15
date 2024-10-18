@@ -9,19 +9,23 @@ export const singIn = async (req: Request, res: Response) => {
     const body = req.body;
     const safeData = singUpSchema.safeParse(body);
     if (!safeData.success) {
-      res.status(401).json({ error: "Não autorizado" });
+      res.status(401).json({ error: safeData.error.flatten().fieldErrors });
       return;
     }
 
     const user = await findUserByEmail(safeData.data?.email);
     if (!user) {
-      res.status(401).json({ error: "Não autorizado" });
+      res.status(401).json({ error: "Usuário ou senha incorretos" });
       return;
     }
 
-    const passwordMatch = compare(safeData.data.password, user.password);
+    console.log("Antes do compare");
+    console.log("Senha fornecida:", safeData.data.password);
+    console.log("Senha armazenada:", user.password);
+    const passwordMatch = await compare(safeData.data.password, user.password);
+    console.log("Depois do compare");
     if (!passwordMatch) {
-      res.status(401).json({ error: "Não autorizado" });
+      res.status(401).json({ error: "Usuário ou senha incorretos" });
       return;
     }
     const token = jwt.sign(
@@ -29,7 +33,10 @@ export const singIn = async (req: Request, res: Response) => {
       process.env.JWT_SECRET!
     );
     res.json({ token, email: safeData.data.email });
+    return;
   } catch (error) {
+    console.log(error);
     res.json({ error });
+    return;
   }
 };

@@ -16,3 +16,7 @@ export const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
   req.token = decoded;
   next();
 };
+
+export const singJWT = (email: string) => {
+  jwt.sign({ email }, process.env.JWT_SECRET!);
+};
