@@ -4,7 +4,11 @@ import { singUp } from "../controllers/singup";
 import { singIn } from "../controllers/singin";
 import { verifyJWT } from "../utils/jwt";
 import { editUser } from "../controllers/user";
-import { editPost, getProjects } from "../controllers/project";
+import {
+  deleteProject,
+  editProject,
+  getProjects,
+} from "../controllers/project";
 import { addProject } from "../controllers/project";
 
 export const mainRouter = Router();
@@ -16,7 +20,7 @@ mainRouter.post("/auth/singup", singUp);
 mainRouter.get("/auth/singin", singIn);
 mainRouter.put("/edit/user", verifyJWT, editUser);
 
-mainRouter.get("/posts", verifyJWT, getProjects);
-mainRouter.post("/post", verifyJWT, addProject);
-mainRouter.get("/edit/post", editPost);
-// mainRouter.get("/delete/post", deletePost);
+mainRouter.get("/projects", verifyJWT, getProjects);
+mainRouter.post("/project", verifyJWT, addProject);
+mainRouter.put("/project/:id", verifyJWT, editProject);
+mainRouter.delete("/project/:id", deleteProject);

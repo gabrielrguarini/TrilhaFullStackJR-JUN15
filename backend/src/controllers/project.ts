@@ -1,7 +1,13 @@
 import { Request, Response } from "express";
 import { findUserByEmail } from "../services/user";
-import { createProject, findProjectsByUser } from "../services/project";
-import { postSchema } from "../schemas/postSchema";
+import {
+  createProject,
+  findProjectsById,
+  findProjectsByUser,
+  removeProject,
+  updateProject,
+} from "../services/project";
+import { projectSchema } from "../schemas/projectSchema";
 
 export const getProjects = async (req: Request, res: Response) => {
   const { email } = req.token;
@@ -17,7 +23,7 @@ export const getProjects = async (req: Request, res: Response) => {
 export const addProject = async (req: Request, res: Response) => {
   const { email } = req.token;
   const body = req.body;
-  const safeData = postSchema.safeParse(body);
+  const safeData = projectSchema.safeParse(body);
   if (!safeData.success) {
     res.status(400).json({ error: safeData.error.flatten().fieldErrors });
     return;
@@ -35,4 +41,38 @@ export const addProject = async (req: Request, res: Response) => {
   res.json({ project });
 };
 
-export const editPost = async (req: Request, res: Response) => {};
+export const editProject = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const body = req.body;
+  const safeData = projectSchema.safeParse(body);
+  if (!safeData.success) {
+    res.status(401).json({ error: safeData.error.flatten().fieldErrors });
+    return;
+  }
+
+  const project = await updateProject(
+    Number(id),
+    safeData.data.title,
+    safeData.data.body
+  );
+  res.json({ ...project });
+  return;
+};
+
+export const deleteProject = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const numberId = parseInt(id);
+  if (!numberId) {
+    res.json({ error: "Id incorreto" });
+    return;
+  }
+
+  const project = await findProjectsById(Number(id));
+  if (!project) {
+    res.json({ error: "Projeto não existe" });
+    return;
+  }
+  const oldProject = await removeProject(Number(id));
+  res.json({ ...oldProject });
+  return;
+};

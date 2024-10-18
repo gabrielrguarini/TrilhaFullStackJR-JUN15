@@ -1,12 +1,20 @@
 import { prisma } from "../utils/prisma";
 
-export const findProjectsByUser = async (id: number) => {
-  const posts = await prisma.project.findMany({
+export const findProjectsByUser = async (userId: number) => {
+  const projects = await prisma.project.findMany({
     where: {
-      userId: id,
+      userId,
     },
   });
-  return posts;
+  return projects;
+};
+export const findProjectsById = async (id: number) => {
+  const project = await prisma.project.findUnique({
+    where: {
+      id,
+    },
+  });
+  return project;
 };
 
 export const createProject = async (
@@ -14,12 +22,37 @@ export const createProject = async (
   body: string,
   userId: number
 ) => {
-  const post = await prisma.project.create({
+  const project = await prisma.project.create({
     data: {
       title,
       body,
       userId,
     },
   });
-  return post;
+  return project;
+};
+export const updateProject = async (
+  id: number,
+  title: string,
+  body: string
+) => {
+  const project = await prisma.project.update({
+    where: {
+      id,
+    },
+    data: {
+      title,
+      body,
+    },
+  });
+  return project;
+};
+
+export const removeProject = async (id: number) => {
+  const project = await prisma.project.delete({
+    where: {
+      id,
+    },
+  });
+  return project;
 };
