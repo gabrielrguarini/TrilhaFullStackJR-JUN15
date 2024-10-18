@@ -23,4 +23,4 @@ mainRouter.put("/edit/user", verifyJWT, editUser);
 mainRouter.get("/projects", verifyJWT, getProjects);
 mainRouter.post("/project", verifyJWT, addProject);
 mainRouter.put("/project/:id", verifyJWT, editProject);
-mainRouter.delete("/project/:id", deleteProject);
+mainRouter.delete("/project/:id", verifyJWT, deleteProject);
