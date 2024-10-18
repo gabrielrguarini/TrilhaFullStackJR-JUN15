@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../utils/prisma";
 import { editUserSchema } from "../schemas/editUserSchema";
+import { findUserByEmail } from "../services/user";
 
 export const editUser = async (req: Request, res: Response) => {
   const { email } = req.token;
@@ -15,11 +16,7 @@ export const editUser = async (req: Request, res: Response) => {
     return;
   }
 
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  const user = await findUserByEmail(safeData.data.email);
   if (!user) {
     res.json({ error: "Usuário não encontrado" });
     return;
