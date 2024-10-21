@@ -11,6 +11,9 @@ const config: Config = {
       colors: {
         primary: "#e53939",
       },
+      backgroundImage: {
+        mapa: "url('/mapa.webp')",
+      },
     },
   },
   plugins: [],
