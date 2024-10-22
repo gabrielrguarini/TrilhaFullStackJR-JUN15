@@ -1,6 +1,6 @@
 "use server";
 
-import { singinSchema } from "@/schemas/singupSchema";
+import { singupSchema } from "@/schemas/singupSchema";
 
 export async function singUpAction(formData: FormData) {
   const body = {
@@ -8,7 +8,7 @@ export async function singUpAction(formData: FormData) {
     password: formData.get("password"),
     repassword: formData.get("repassword"),
   };
-  const safeData = singinSchema.safeParse(body);
+  const safeData = singupSchema.safeParse(body);
   if (!safeData.success) {
     console.log(safeData.error?.flatten().fieldErrors);
     // return safeData.error?.flatten().fieldErrors;

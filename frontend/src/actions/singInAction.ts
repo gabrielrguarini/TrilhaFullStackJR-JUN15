@@ -1,6 +1,6 @@
 "use server";
 
-import { singinSchema } from "@/schemas/singupSchema";
+import { singinSchema } from "@/schemas/singinSchema";
 
 export async function singInAction(formData: FormData) {
   const body = {

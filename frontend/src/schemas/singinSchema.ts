@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const singupSchema = z
+export const singinSchema = z
   .object({
     email: z
       .string({ message: "Email é obrigatório" })
