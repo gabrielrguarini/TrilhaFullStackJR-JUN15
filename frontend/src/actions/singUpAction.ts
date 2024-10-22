@@ -1,8 +1,8 @@
 "use server";
 
-import { singinSchema } from "@/schemas/singinSchema";
+import { singinSchema } from "@/schemas/singupSchema";
 
-export async function singin(formData: FormData) {
+export async function singUpAction(formData: FormData) {
   const body = {
     email: formData.get("email"),
     password: formData.get("password"),
