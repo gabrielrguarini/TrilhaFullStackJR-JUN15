@@ -16,3 +16,5 @@ export const singupSchema = z
     message: "As senhas devem ser iguais",
     path: ["repassword"],
   });
+
+export type SingUp = z.infer<typeof singupSchema>;
