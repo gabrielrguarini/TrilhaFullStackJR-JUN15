@@ -6,7 +6,7 @@ import { singinSchema } from "@/schemas/singinSchema";
 import type { SingIn } from "@/schemas/singinSchema";
 import { ErrorMessage } from "@hookform/error-message";
 import Cookies from "js-cookie";
-
+import { useRouter } from "next/navigation";
 export default function SignIn() {
   const {
     register,
@@ -16,6 +16,7 @@ export default function SignIn() {
   } = useForm<SingIn>({
     resolver: zodResolver(singinSchema),
   });
+  const router = useRouter();
 
   const onSubmit = async (data: FieldValues) => {
     const response = await fetch("http://localhost:3333/auth/singin", {
@@ -36,6 +37,7 @@ export default function SignIn() {
       secure: true,
       sameSite: "Strict",
     });
+    router.replace("/admin");
   };
 
   return (
