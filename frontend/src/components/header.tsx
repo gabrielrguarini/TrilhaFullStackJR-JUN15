@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Logo from "./logo-svg";
+import HeaderButton from "./header-button";
 import { cookies } from "next/headers";
 
 export const Header = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token");
+  const hasToken = !!token;
   return (
     <header className="flex items-center border-b-2 border-solid border-b-primary p-4">
       <nav className="m-auto flex max-w-screen-xl flex-1 justify-between">
@@ -18,12 +20,9 @@ export const Header = async () => {
           <Link href={"#SOBRE"}>
             <li className="">Sobre</li>
           </Link>
-
-          <Link href={token ? "/singin" : "/singout"}>
-            <li className="rounded-md bg-primary px-2 font-semibold text-black transition-all hover:bg-white">
-              {token ? "Sair" : "Entrar"}
-            </li>
-          </Link>
+          <li className="cursor-pointer">
+            <HeaderButton />
+          </li>
         </ul>
       </nav>
     </header>

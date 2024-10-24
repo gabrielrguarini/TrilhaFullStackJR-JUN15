@@ -43,7 +43,7 @@ export default function SignUp() {
     router.replace("/admin");
   };
   return (
-    <main className="mx-auto mt-[-61px] flex min-h-screen w-full max-w-screen-xl flex-1 flex-col items-center justify-center">
+    <main className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col items-center justify-center">
       <div className="m-auto min-w-80">
         <h1 className="text-center text-2xl">Cadastrar</h1>
         <form
@@ -87,7 +87,7 @@ export default function SignUp() {
           )}
           <button
             type="submit"
-            className="mt-6 rounded-full bg-primary p-1 px-4 text-black"
+            className="mt-6 rounded-full bg-primary p-1 px-4 text-black transition-all hover:bg-white"
           >
             Cadastrar
           </button>

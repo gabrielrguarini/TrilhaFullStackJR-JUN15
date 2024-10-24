@@ -15,22 +15,13 @@ export default function Home() {
             Cadastre-se
           </button>
         </div>
-        <div className="bg-mapa relative mt-10 bg-contain">
-          {/* <Image
-            src={"/mapa.avif"}
-            height={300}
-            width={500}
-            objectFit="cover"
-            alt="Criança com um headset"
-            className="absolute right-20 z-0"
-          /> */}
+        <div className="relative mt-10 bg-mapa bg-contain">
           <Image
             src={"/crianca.avif"}
             height={300}
             width={500}
             style={{ objectFit: "contain" }}
             alt="Criança com um headset"
-            className="z-50"
           />
         </div>
       </main>
