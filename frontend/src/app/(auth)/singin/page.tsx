@@ -1,12 +1,11 @@
 "use client";
 import { FieldValues, useForm } from "react-hook-form";
-import { singInAction } from "@/actions/singInAction";
 import { Input } from "@/components/input";
-import { useActionState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { singinSchema } from "@/schemas/singinSchema";
 import type { SingIn } from "@/schemas/singinSchema";
 import { ErrorMessage } from "@hookform/error-message";
+import Cookies from "js-cookie";
 
 export default function SignIn() {
   const {
@@ -32,6 +31,11 @@ export default function SignIn() {
       setError("email", { type: "manual", message: resData.error });
       return;
     }
+    Cookies.set("token", resData.token, {
+      expires: 7,
+      secure: true,
+      sameSite: "Strict",
+    });
   };
 
   return (
