@@ -17,7 +17,7 @@ mainRouter.get("/ping", ping);
 mainRouter.get("/auth/ping", verifyJWT, pingAuth);
 
 mainRouter.post("/auth/singup", singUp);
-mainRouter.get("/auth/singin", singIn);
+mainRouter.post("/auth/singin", singIn);
 mainRouter.put("/user", verifyJWT, editUser);
 
 mainRouter.get("/projects", verifyJWT, getProjects);
