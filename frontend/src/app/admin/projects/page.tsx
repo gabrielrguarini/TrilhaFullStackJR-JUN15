@@ -18,7 +18,6 @@ export default function Projects() {
           Authorization: `Bearer ${token}`,
         },
         method: "GET",
-        cache: "force-cache",
       });
       if (!response.ok) {
         router.push("/projects");
