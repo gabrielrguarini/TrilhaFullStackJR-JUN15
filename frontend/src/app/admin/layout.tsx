@@ -13,5 +13,9 @@ export default async function RootLayout({
     redirect("/singin");
   }
 
-  return children;
+  return (
+    <main className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col items-center justify-center">
+      {children}
+    </main>
+  );
 }
