@@ -9,24 +9,38 @@ import { ErrorMessage } from "@hookform/error-message";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useParams } from "next/navigation";
 
 export default function Project() {
+  const { id } = useParams();
   useEffect(() => {
     const data = async () => {
       const token = Cookies.get("token");
-      const response = await fetch("http://localhost:3333/project", {
+      const response = await fetch(`http://localhost:3333/project/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        method: "GET",
       });
+      if(!response.ok){
+        router.push("/projects");
+      }
+      const resData = await response.json();
+      if (!resData) {
+        router.push("/projects");
+      }
+      setValue("body", resData.body);
+      setValue("title", resData.title);
     };
+    data();
   });
   const router = useRouter();
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<ProjectSchema>({
     resolver: zodResolver(projectSchema),
@@ -61,7 +75,7 @@ export default function Project() {
         )}
       </div>
       <div className="flex flex-col">
-        <label htmlFor="body">Conteúdo</label>
+        <label>Conteúdo</label>
         <textarea
           className="rounded-2xl border-2 border-primary bg-transparent p-1 px-4"
           contentEditable

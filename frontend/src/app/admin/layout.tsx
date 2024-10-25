@@ -14,7 +14,7 @@ export default async function RootLayout({
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col items-center justify-center">
+    <main className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col items-start">
       {children}
     </main>
   );
