@@ -8,7 +8,7 @@ export const findProjectsByUser = async (userId: number) => {
   });
   return projects;
 };
-export const findProjectsById = async (id: number) => {
+export const findProjectById = async (id: number) => {
   const project = await prisma.project.findUnique({
     where: {
       id,

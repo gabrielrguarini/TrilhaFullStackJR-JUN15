@@ -7,6 +7,7 @@ import { editUser } from "../controllers/user";
 import {
   deleteProject,
   editProject,
+  getProjectById,
   getProjects,
 } from "../controllers/project";
 import { addProject } from "../controllers/project";
@@ -23,4 +24,5 @@ mainRouter.put("/user", verifyJWT, editUser);
 mainRouter.get("/projects", verifyJWT, getProjects);
 mainRouter.post("/project", verifyJWT, addProject);
 mainRouter.put("/project/:id", verifyJWT, editProject);
+mainRouter.get("/project/:id", verifyJWT, getProjectById);
 mainRouter.delete("/project/:id", verifyJWT, deleteProject);

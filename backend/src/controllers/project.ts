@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { findUserByEmail } from "../services/user";
 import {
   createProject,
-  findProjectsById,
+  findProjectById,
   findProjectsByUser,
   removeProject,
   updateProject,
@@ -18,6 +18,21 @@ export const getProjects = async (req: Request, res: Response) => {
   }
   const posts = await findProjectsByUser(user.id);
   res.json(posts);
+};
+export const getProjectById = async (req: Request, res: Response) => {
+  const { email } = req.token;
+  const { id } = req.params;
+  const idNumber = parseInt(id, 10);
+  if (!idNumber) {
+    res.status(400).json({ error: "Erro ao buscar projeto" });
+  }
+  const user = await findUserByEmail(email);
+  if (!user) {
+    res.status(400).json({ error: "Usuário não encontrado" });
+    return;
+  }
+  const post = await findProjectById(idNumber);
+  res.json(post);
 };
 
 export const addProject = async (req: Request, res: Response) => {
@@ -67,7 +82,7 @@ export const deleteProject = async (req: Request, res: Response) => {
     return;
   }
 
-  const project = await findProjectsById(Number(id));
+  const project = await findProjectById(Number(id));
   if (!project) {
     res.json({ error: "Projeto não existe" });
     return;
