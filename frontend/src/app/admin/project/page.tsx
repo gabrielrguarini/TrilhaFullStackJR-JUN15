@@ -34,40 +34,45 @@ export default function Project() {
     router.push(`/project/${resData.project.id}`);
   };
   return (
-    <form
-      method="GET"
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-2"
-    >
-      <div className="flex flex-col">
-        <label htmlFor="title">Título</label>
-        <Input type="text" {...register("title")} className="mt-0" />
-        {errors.title && (
-          <span>
-            <ErrorMessage errors={errors} name="title" />
-          </span>
-        )}
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="body">Conteúdo</label>
-        <textarea
-          className="rounded-2xl border-2 border-primary bg-transparent p-1 px-4"
-          contentEditable
-          cols={40}
-          spellCheck={true}
-          rows={16}
-          {...register("body")}
-          style={{ scrollbarWidth: "none" }}
-        />
-        {errors.body && (
-          <span>
-            <ErrorMessage errors={errors} name="body" />
-          </span>
-        )}
-      </div>
-      <button className="mt-4 rounded-full border-2 border-white" type="submit">
-        Enviar
-      </button>
-    </form>
+    <div className="flex w-full flex-1 items-center justify-center">
+      <form
+        method="GET"
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-2"
+      >
+        <div className="flex flex-col">
+          <label htmlFor="title">Título</label>
+          <Input type="text" {...register("title")} className="mt-0" />
+          {errors.title && (
+            <span>
+              <ErrorMessage errors={errors} name="title" />
+            </span>
+          )}
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="body">Conteúdo</label>
+          <textarea
+            className="rounded-2xl border-2 border-primary bg-transparent p-1 px-4"
+            contentEditable
+            cols={40}
+            spellCheck={true}
+            rows={16}
+            {...register("body")}
+            style={{ scrollbarWidth: "none" }}
+          />
+          {errors.body && (
+            <span>
+              <ErrorMessage errors={errors} name="body" />
+            </span>
+          )}
+        </div>
+        <button
+          className="mt-4 rounded-full border-2 border-white"
+          type="submit"
+        >
+          Enviar
+        </button>
+      </form>
+    </div>
   );
 }

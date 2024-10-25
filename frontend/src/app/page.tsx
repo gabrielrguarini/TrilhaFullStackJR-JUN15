@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -11,9 +12,9 @@ export default function Home() {
           <p>
             Crie sua conta, para poder postar e editar seus projetos livremente.
           </p>
-          <button className="mt-5 rounded-full border-2 p-2 px-4 hover:bg-white hover:text-black">
+          <Link href={"/singin"} className="mt-5 rounded-full border-2 p-2 px-4 hover:bg-white hover:text-black">
             Cadastre-se
-          </button>
+          </Link>
         </div>
         <div className="relative mt-10 bg-mapa bg-contain">
           <Image

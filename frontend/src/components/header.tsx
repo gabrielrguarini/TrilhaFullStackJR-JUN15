@@ -14,11 +14,11 @@ export const Header = async () => {
           <Logo width={42} />
         </Link>
         <ul className="flex gap-8">
-          <Link href={"#INICIO"}>
+          <Link href={"/"}>
             <li className="">Home</li>
           </Link>
-          <Link href={"#SOBRE"}>
-            <li className="">Sobre</li>
+          <Link href={"admin/projects"}>
+            <li className="">Projetos</li>
           </Link>
           <li className="cursor-pointer">
             <HeaderButton />
