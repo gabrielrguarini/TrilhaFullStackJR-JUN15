@@ -1,4 +1,5 @@
 "use client";
+import ProjectCard from "@/components/project-card";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -17,6 +18,7 @@ export default function Projects() {
           Authorization: `Bearer ${token}`,
         },
         method: "GET",
+        cache: "force-cache",
       });
       if (!response.ok) {
         router.push("/projects");
@@ -32,20 +34,13 @@ export default function Projects() {
   }, []);
   return (
     <div className="mt-4 flex flex-wrap justify-center gap-2">
-      {projects.map((project, index) => {
+      {projects.map((project) => {
         return (
-          <div
-            onClick={() => {
-              router.push(`/admin/project/${project.id}`);
-            }}
-            key={index}
-            className="max-h-40 max-w-64 cursor-pointer overflow-hidden text-ellipsis border-2 border-primary p-2"
-          >
-            <h3 className="text-xl font-semibold text-primary">
-              {project.title}
-            </h3>
-            <p>{project.body}</p>
-          </div>
+          <ProjectCard
+            body={project.body}
+            title={project.title}
+            id={project.id}
+          />
         );
       })}
     </div>

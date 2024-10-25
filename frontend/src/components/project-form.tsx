@@ -3,16 +3,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { Input } from "./input";
 import { ErrorMessage } from "@hookform/error-message";
+import { useEffect } from "react";
 
 export const ProjectForm = ({
   onSubmit,
+  defaultValues,
 }: {
   onSubmit: (data: FieldValues) => Promise<void>;
+  defaultValues?: ProjectSchema;
 }) => {
+  useEffect(() => {
+    defaultValues && setValue("title", defaultValues.title);
+    defaultValues && setValue("body", defaultValues.body);
+  }, [defaultValues]);
   const {
     register,
     handleSubmit,
-    reset,
     setValue,
     formState: { errors },
   } = useForm<ProjectSchema>({

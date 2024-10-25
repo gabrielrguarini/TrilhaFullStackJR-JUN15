@@ -17,7 +17,7 @@ export const Header = async () => {
           <Link href={"/"}>
             <li className="">Home</li>
           </Link>
-          <Link href={"admin/projects"}>
+          <Link href={"/admin/projects"}>
             <li className="">Projetos</li>
           </Link>
           <li className="cursor-pointer">
