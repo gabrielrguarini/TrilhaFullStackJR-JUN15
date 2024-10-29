@@ -1,9 +1,9 @@
+"use client";
 import { projectSchema, ProjectSchema } from "@/schemas/projectSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { Input } from "./input";
 import { ErrorMessage } from "@hookform/error-message";
-import { useEffect } from "react";
 
 export const ProjectForm = ({
   onSubmit,
@@ -12,18 +12,15 @@ export const ProjectForm = ({
   onSubmit: (data: FieldValues) => Promise<void>;
   defaultValues?: ProjectSchema;
 }) => {
-  useEffect(() => {
-    defaultValues && setValue("title", defaultValues.title);
-    defaultValues && setValue("body", defaultValues.body);
-  }, [defaultValues]);
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<ProjectSchema>({
     resolver: zodResolver(projectSchema),
+    defaultValues: defaultValues,
   });
+  if (!defaultValues) return null;
   return (
     <form
       method="GET"
@@ -56,8 +53,11 @@ export const ProjectForm = ({
           </span>
         )}
       </div>
-      <button className="mt-4 rounded-full border-2 border-white" type="submit">
-        Enviar
+      <button
+        className="mt-4 rounded-full bg-primary p-2 text-black"
+        type="submit"
+      >
+        {defaultValues ? "Editar Projeto" : "Criar Projeto"}
       </button>
     </form>
   );
