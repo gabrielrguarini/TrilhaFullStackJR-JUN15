@@ -5,26 +5,30 @@ import { FieldValues, useForm } from "react-hook-form";
 import { Input } from "./input";
 import { ErrorMessage } from "@hookform/error-message";
 
-export const ProjectForm = ({
-  onSubmit,
-  defaultValues,
-}: {
-  onSubmit: (data: FieldValues) => Promise<void>;
-  defaultValues?: ProjectSchema;
-}) => {
+import { createProjectById } from "@/services/project";
+
+export const CreateProjectForm = ({ token }: { token: string }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ProjectSchema>({
     resolver: zodResolver(projectSchema),
-    defaultValues: defaultValues,
   });
-  if (!defaultValues) return null;
+
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      await createProjectById(token, data);
+      reset();
+    } catch (error) {
+      console.error("Erro ao enviar dados:", error);
+    }
+  };
   return (
     <form
       method="GET"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit((formData) => onSubmit(formData))}
       className="flex flex-col gap-2"
     >
       <div className="flex flex-col">
@@ -57,7 +61,7 @@ export const ProjectForm = ({
         className="mt-4 rounded-full bg-primary p-2 text-black"
         type="submit"
       >
-        {defaultValues ? "Editar Projeto" : "Criar Projeto"}
+        Criar Projeto
       </button>
     </form>
   );

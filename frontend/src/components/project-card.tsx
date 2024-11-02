@@ -12,7 +12,6 @@ type Props = {
 export default function ProjectCard({ id, title, body }: Props) {
   const router = useRouter();
   const token = Cookies.get("token");
-  console.log(id);
   return (
     <div
       key={`${id}`}

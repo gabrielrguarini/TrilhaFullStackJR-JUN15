@@ -24,7 +24,6 @@ export default function Projects() {
         router.push("/projects");
       }
       const resData = await response.json();
-      console.log(resData);
       setProjects(resData);
       if (!resData) {
         router.push("/projects");
