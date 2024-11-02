@@ -1,33 +1,19 @@
 "use client";
 import ProjectCard from "@/components/project-card";
+import { getProjectsByToken } from "@/services/project";
 import Cookies from "js-cookie";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Projects() {
   const [projects, setProjects] = useState<
-    { title: string; body: string; id: number }[]
+    { title: string; body: string; id: string }[]
   >([]);
-  const router = useRouter();
   useEffect(() => {
     const data = async () => {
       const token = Cookies.get("token");
-      const response = await fetch(`http://localhost:3333/projects`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        method: "GET",
-      });
-      if (!response.ok) {
-        router.push("/projects");
-      }
-      const resData = await response.json();
-      setProjects(resData);
-      if (!resData) {
-        router.push("/projects");
-      }
+      if (!token) return;
+      setProjects(await getProjectsByToken(token));
     };
     data();
   }, []);
@@ -48,6 +34,7 @@ export default function Projects() {
               body={project.body}
               title={project.title}
               id={project.id}
+              setProjects={setProjects}
             />
           );
         })}

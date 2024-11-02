@@ -1,7 +1,13 @@
 import { ProjectSchema } from "@/schemas/projectSchema";
 import { FieldValues } from "react-hook-form";
 
-export const deleteProjectById = async (id: number, token: string) => {
+export const deleteProjectById = async (
+  id: string,
+  token: string,
+): Promise<
+  | { id: number; title: string; body: string; userId: number }
+  | { error: string }
+> => {
   const response = await fetch(`http://localhost:3333/project/${id}`, {
     method: "DELETE",
     headers: {
@@ -9,7 +15,19 @@ export const deleteProjectById = async (id: number, token: string) => {
       Authorization: `Bearer ${token}`,
     },
   });
+  return await response.json();
+};
+
+export const getProjectsByToken = async (token: string) => {
+  const response = await fetch(`http://localhost:3333/projects`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "GET",
+  });
   const resData = await response.json();
+  return resData;
 };
 
 export const getProjectById = async (
@@ -24,8 +42,6 @@ export const getProjectById = async (
     method: "GET",
   });
   const resData = await response.json();
-  console.log("id->", id);
-  console.log("resData->", resData);
   return resData;
 };
 
