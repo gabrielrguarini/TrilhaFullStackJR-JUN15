@@ -22,7 +22,7 @@ export default function Projects() {
       <div>
         <Link
           href={"/admin/project"}
-          className="rounded-lg bg-primary p-2 text-black"
+          className="rounded-lg bg-primary p-2 text-white transition-all duration-300 hover:bg-black"
         >
           Criar projeto
         </Link>

@@ -6,8 +6,10 @@ import { Input } from "./input";
 import { ErrorMessage } from "@hookform/error-message";
 
 import { createProjectById } from "@/services/project";
+import { useToast } from "@/context/ToastContext";
 
 export const CreateProjectForm = ({ token }: { token: string }) => {
+  const showToast = useToast();
   const {
     register,
     handleSubmit,
@@ -21,6 +23,7 @@ export const CreateProjectForm = ({ token }: { token: string }) => {
     try {
       await createProjectById(token, data);
       reset();
+      showToast({ message: "Projeto criado com sucesso." });
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
     }
@@ -32,7 +35,9 @@ export const CreateProjectForm = ({ token }: { token: string }) => {
       className="flex flex-col gap-2"
     >
       <div className="flex flex-col">
-        <label htmlFor="title">Título</label>
+        <label htmlFor="title" className="-mb-4">
+          Título
+        </label>
         <Input type="text" {...register("title")} className="mt-0" />
         {errors.title && (
           <span>
@@ -58,7 +63,7 @@ export const CreateProjectForm = ({ token }: { token: string }) => {
         )}
       </div>
       <button
-        className="mt-4 rounded-full bg-primary p-2 text-black"
+        className="mt-4 rounded-full bg-primary p-2 text-white transition-all duration-300 hover:bg-black"
         type="submit"
       >
         Criar Projeto

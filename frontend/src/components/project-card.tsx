@@ -34,11 +34,11 @@ export default function ProjectCard({ id, title, body, setProjects }: Props) {
   return (
     <div
       key={`${id}`}
-      className="relative max-h-40 max-w-64 overflow-hidden text-ellipsis border-2 border-primary p-2"
+      className="relative max-h-40 max-w-64 overflow-hidden border-2 border-primary p-2"
     >
       <button
         onClick={() => onDelete(id, token!)}
-        className="absolute right-1 z-50 cursor-pointer rounded-full p-1 text-primary hover:bg-primary hover:text-black"
+        className="absolute right-1 z-50 cursor-pointer rounded-full bg-white p-1 text-primary hover:bg-primary hover:text-black"
       >
         <Trash />
       </button>
@@ -46,11 +46,11 @@ export default function ProjectCard({ id, title, body, setProjects }: Props) {
         onClick={() => {
           router.push(`/admin/project/${id}`);
         }}
-        className="cursor-pointer text-xl font-semibold text-primary"
+        className="cursor-pointer truncate text-xl font-semibold text-primary"
       >
         {title}
       </h3>
-      <p>{body}</p>
+      <p className="text-ellipsis">{body}</p>
     </div>
   );
 }

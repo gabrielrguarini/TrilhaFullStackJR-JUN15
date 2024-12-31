@@ -43,7 +43,7 @@ export const ProjectForm = ({
         )}
       </div>
       <div className="flex flex-col">
-        <label htmlFor="body">Conteúdo</label>
+        <label>Conteúdo</label>
         <textarea
           className="rounded-2xl border-2 border-primary bg-transparent p-1 px-4"
           contentEditable
